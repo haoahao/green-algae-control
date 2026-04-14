@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>生態水池管理 SOP — 綠藻防治與水質改善標準作業程序</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1a1a18;
+  --ink-light: #4a4a44;
+  --ink-muted: #8a8a80;
+  --paper: #f7f5f0;
+  --paper-warm: #ede9e0;
+  --accent-green: #2d6a4f;
+  --accent-green-light: #74c69d;
+  --accent-amber: #8b5e1a;
+  --accent-amber-light: #f4a535;
+  --accent-red: #9b2226;
+  --accent-red-light: #e63946;
+  --accent-blue: #1b4f72;
+  --rule: #d0cdc4;
+  --serif: 'Noto Serif TC', serif;
+  --sans: 'Noto Sans TC', sans-serif;
+  --mono: 'DM Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-weight: 300;
+  line-height: 1.8;
+  font-size: 15px;
+}
+
+/* ── COVER ── */
+.cover {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  padding: 60px;
+  background: var(--ink);
+  color: var(--paper);
+  position: relative;
+  overflow: hidden;
+}
+
+.cover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,.04) 39px, rgba(255,255,255,.04) 40px),
+    repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,.04) 39px, rgba(255,255,255,.04) 40px);
+}
+
+.cover-body { position: relative; display: flex; flex-direction: column; justify-content: center; }
+
+.doc-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .2em;
+  color: var(--accent-green-light);
+  margin-bottom: 48px;
+  text-transform: uppercase;
+}
+
+.cover-title {
+  font-family: var(--serif);
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 24px;
+}
+
+.cover-title em {
+  font-style: normal;
+  color: var(--accent-green-light);
+}
+
+.cover-sub {
+  font-size: 16px;
+  color: rgba(247,245,240,.6);
+  max-width: 480px;
+  line-height: 1.7;
+  margin-bottom: 56px;
+}
+
+.cover-meta {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 40px;
+  justify-content: start;
+}
+
+.meta-item { }
+.meta-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .15em;
+  color: rgba(247,245,240,.4);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.meta-val {
+  font-size: 14px;
+  color: rgba(247,245,240,.85);
+}
+
+.cover-footer {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-top: 1px solid rgba(255,255,255,.12);
+  padding-top: 20px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: rgba(247,245,240,.3);
+}
+
+/* ── PAGE LAYOUT ── */
+.page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 60px 60px;
+}
+
+@media (max-width: 640px) {
+  .cover { padding: 32px; }
+  .page { padding: 32px 24px; }
+  .cover-meta { grid-template-columns: 1fr 1fr; gap: 24px; }
+}
+
+/* ── SECTION HEADERS ── */
+.section-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 56px 0 32px;
+}
+
+.section-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-muted);
+  letter-spacing: .1em;
+  flex-shrink: 0;
+}
+
+.section-rule { flex: 1; height: 1px; background: var(--rule); }
+
+.section-title {
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.section-desc {
+  font-size: 14px;
+  color: var(--ink-muted);
+  margin-bottom: 28px;
+}
+
+/* ── CAUSE ANALYSIS ── */
+.cause-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 640px) { .cause-grid { grid-template-columns: 1fr; } }
+
+.cause-card {
+  background: white;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.cause-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.cause-card.amber::before { background: var(--accent-amber-light); }
+.cause-card.red::before { background: var(--accent-red-light); }
+.cause-card.green::before { background: var(--accent-green-light); }
+
+.cause-icon {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .1em;
+  margin-bottom: 10px;
+  opacity: .5;
+}
+.cause-card.amber .cause-icon { color: var(--accent-amber); }
+.cause-card.red .cause-icon { color: var(--accent-red); }
+.cause-card.green .cause-icon { color: var(--accent-green); }
+
+.cause-heading {
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.cause-body { font-size: 13px; color: var(--ink-light); line-height: 1.7; }
+
+.cause-chain {
+  background: white;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.chain-node {
+  background: var(--paper-warm);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.chain-arrow {
+  font-family: var(--mono);
+  color: var(--ink-muted);
+  font-size: 14px;
+}
+
+.chain-node.highlight {
+  background: var(--accent-red);
+  color: white;
+  border-color: var(--accent-red);
+}
+
+/* ── PHASE BLOCKS ── */
+.phase-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.phase-badge {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .12em;
+  padding: 4px 10px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.badge-red { background: var(--accent-red); color: white; }
+.badge-amber { background: var(--accent-amber-light); color: var(--ink); }
+.badge-teal { background: var(--accent-green); color: white; }
+
+.phase-title {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.phase-goal {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-muted);
+}
+
+/* ── TASK TABLE ── */
+.task-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  font-size: 13.5px;
+}
+
+.task-table thead tr {
+  border-bottom: 2px solid var(--ink);
+}
+
+.task-table thead th {
+  text-align: left;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  padding: 8px 12px 8px 0;
+  font-weight: 400;
+}
+
+.task-table tbody tr {
+  border-bottom: 1px solid var(--rule);
+}
+
+.task-table tbody tr:hover { background: rgba(0,0,0,.02); }
+
+.task-table td {
+  padding: 11px 12px 11px 0;
+  vertical-align: top;
+}
+
+.task-table td:first-child { width: 28px; }
+
+.priority-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  margin-top: 5px;
+}
+.dot-red { background: var(--accent-red-light); }
+.dot-amber { background: var(--accent-amber-light); }
+.dot-green { background: var(--accent-green-light); }
+.dot-blue { background: #5b9bd5; }
+
+.task-name { font-weight: 500; color: var(--ink); }
+.task-detail { font-size: 12px; color: var(--ink-light); margin-top: 3px; line-height: 1.6; }
+
+.tag {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 2px;
+  margin-right: 4px;
+  margin-top: 4px;
+  letter-spacing: .05em;
+}
+.tag-bio { background: #e8f5e9; color: #1b5e20; }
+.tag-plant { background: #f1f8e9; color: #33691e; }
+.tag-micro { background: #fff8e1; color: #e65100; }
+.tag-filter { background: #e3f2fd; color: #0d47a1; }
+
+/* ── FILTER SOP TABLE ── */
+.filter-sop {
+  background: white;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.filter-sop-header {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 12px 20px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.filter-sop table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.filter-sop th {
+  background: var(--paper-warm);
+  padding: 10px 16px;
+  text-align: left;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .1em;
+  color: var(--ink-muted);
+  font-weight: 400;
+  border-bottom: 1px solid var(--rule);
+}
+
+.filter-sop td {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+
+.filter-sop tr:last-child td { border-bottom: none; }
+
+.mode-pill {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 2px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+}
+.mode-backwash { background: #fce4ec; color: #880e4f; }
+.mode-rinse { background: #fff3e0; color: #bf360c; }
+.mode-filter { background: #e8f5e9; color: #1b5e20; }
+.mode-recirculate { background: #e3f2fd; color: #0d47a1; }
+
+/* ── WEEKLY CALENDAR ── */
+.week-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+@media (max-width: 640px) { .week-grid { grid-template-columns: repeat(4, 1fr); } }
+
+.day-block {
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 10px 8px;
+  background: white;
+  min-height: 90px;
+}
+
+.day-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .1em;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.day-task {
+  font-size: 11px;
+  color: var(--ink-light);
+  margin-bottom: 4px;
+  padding: 3px 6px;
+  border-radius: 2px;
+  line-height: 1.4;
+}
+.dt-filter { background: #e8f5e9; color: #1b5e20; }
+.dt-bio { background: #fff8e1; color: #e65100; }
+.dt-clean { background: #f3e5f5; color: #4a148c; }
+.dt-check { background: #e3f2fd; color: #0d47a1; }
+.dt-rest { background: var(--paper-warm); color: var(--ink-muted); }
+
+/* ── ALERT BOX ── */
+.alert {
+  border-left: 3px solid;
+  padding: 14px 20px;
+  margin: 20px 0;
+  border-radius: 0 4px 4px 0;
+  font-size: 13.5px;
+}
+.alert-info { border-color: var(--accent-blue); background: #eaf0f8; }
+.alert-warn { border-color: var(--accent-amber-light); background: #fef9ec; }
+.alert-tip { border-color: var(--accent-green-light); background: #edf7f1; }
+
+.alert strong { font-weight: 500; display: block; margin-bottom: 4px; }
+
+/* ── CHECKLIST ── */
+.checklist { list-style: none; }
+.checklist li {
+  display: flex;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 13.5px;
+  align-items: flex-start;
+}
+.checklist li:last-child { border-bottom: none; }
+.check-box {
+  width: 16px; height: 16px;
+  border: 1.5px solid var(--rule);
+  border-radius: 2px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.check-text { flex: 1; }
+.check-note { font-size: 12px; color: var(--ink-muted); }
+
+/* ── PRINT ── */
+@media print {
+  .cover { min-height: auto; page-break-after: always; }
+  .page { padding: 24px; }
+  .phase-block { page-break-inside: avoid; }
+}
+
+/* ── MISC ── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } }
+
+.info-card {
+  background: white;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 18px 20px;
+}
+
+.info-card-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .12em;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.info-card-val {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.page-break { border: none; border-top: 2px dashed var(--rule); margin: 56px 0; }
+
+hr.thin { border: none; border-top: 1px solid var(--rule); margin: 28px 0; }
+
+.footnote {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-muted);
+  margin-top: 4px;
+}
+
+.phase-block {
+  background: white;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 24px 28px;
+  margin-bottom: 20px;
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════ COVER ══════════════════ -->
+<div class="cover">
+  <div class="cover-body">
+    <div class="doc-label">標準作業程序 SOP — 校園生態水池</div>
+    <h1 class="cover-title">
+      生態水池水質改善<br>
+      <em>綠藻防治管理手冊</em>
+    </h1>
+    <p class="cover-sub">
+      針對戶外自然生態池受樟樹花期影響導致綠藻爆發之完整處理流程，
+      涵蓋成因分析、生物介入、植物配置、菌相建立及過濾系統操作時程。
+    </p>
+    <div class="cover-meta">
+      <div class="meta-item">
+        <div class="meta-label">文件編號</div>
+        <div class="meta-val">ECO-POND-SOP-001</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">適用設備</div>
+        <div class="meta-val">AQUA WAY KP 系列砂濾桶</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">版本</div>
+        <div class="meta-val">v1.0 — 2025</div>
+      </div>
+    </div>
+  </div>
+  <div class="cover-footer">
+    <span>校園總務處 — 生態水池維護管理</span>
+    <span>CONFIDENTIAL — FOR INTERNAL USE</span>
+  </div>
+</div>
+
+<!-- ══════════════════ PAGE 1 ══════════════════ -->
+<div class="page">
+
+  <!-- §1 問題描述 -->
+  <div class="section-divider">
+    <span class="section-num">§ 01</span>
+    <div class="section-rule"></div>
+  </div>
+  <h2 class="section-title">問題描述與現況</h2>
+  <p class="section-desc">依現場照片與環境條件判斷</p>
+
+  <div class="two-col" style="margin-bottom: 20px;">
+    <div class="info-card">
+      <div class="info-card-label">水池類型</div>
+      <div class="info-card-val">戶外自然生態池</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-label">主要問題</div>
+      <div class="info-card-val" style="color: var(--accent-red);">綠藻爆發覆蓋水面</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-label">誘發原因</div>
+      <div class="info-card-val">周圍樟樹開花花粉入池</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-label">過濾設備</div>
+      <div class="info-card-val">AQUA WAY 頂裝砂濾桶</div>
+    </div>
+  </div>
+
+  <div class="alert alert-warn">
+    <strong>現況說明</strong>
+    水面佈滿黃綠色藻斑，水色呈茶褐色，右下角有死水區域，左側瀑布為唯一水流擾動點。此為富營養化初期爆藻狀態，若不處理將在 2～3 週內惡化為全面性藍綠藻爆發。
+  </div>
+
+  <!-- §2 成因分析 -->
+  <div class="section-divider">
+    <span class="section-num">§ 02</span>
+    <div class="section-rule"></div>
+  </div>
+  <h2 class="section-title">成因分析</h2>
+  <p class="section-desc">三項因素疊加導致綠藻在 1～2 週內覆蓋水面</p>
+
+  <div class="cause-grid">
+    <div class="cause-card amber">
+      <div class="cause-icon">CAUSE — A</div>
+      <div class="cause-heading">外部有機物輸入</div>
+      <div class="cause-body">樟樹花期（台灣約 2～4 月）大量花粉、花瓣落入池中，富含氮、磷、醣類，是藻類最佳養分來源。花期間每日持續輸入，造成水體養分快速積累。</div>
+    </div>
+    <div class="cause-card red">
+      <div class="cause-icon">CAUSE — B</div>
+      <div class="cause-heading">水體流動不足</div>
+      <div class="cause-body">僅左側瀑布一處入水，右側形成大面積死水區。靜止水體缺乏溶氧擾動，有利藻類在水面穩定集結，加速光合作用繁殖。</div>
+    </div>
+    <div class="cause-card green">
+      <div class="cause-icon">CAUSE — C</div>
+      <div class="cause-heading">生物競爭缺乏</div>
+      <div class="cause-body">池中無沉水植物、無濾食性貝類、無足夠底棲動物與藻類競爭養分。生態鏈不完整，使藻類在無天敵狀態下快速繁殖。</div>
+    </div>
+  </div>
+
+  <div class="cause-chain">
+    <span class="chain-node">樟樹落花</span>
+    <span class="chain-arrow">→</span>
+    <span class="chain-node">有機物分解</span>
+    <span class="chain-arrow">→</span>
+    <span class="chain-node">氮磷釋放</span>
+    <span class="chain-arrow">+</span>
+    <span class="chain-node">陽光充足</span>
+    <span class="chain-arrow">+</span>
+    <span class="chain-node">水體靜止</span>
+    <span class="chain-arrow">→</span>
+    <span class="chain-node highlight">綠藻爆發</span>
+  </div>
+  <p class="footnote">成因鏈：三力疊加缺一不可，改善策略需同時從三個方向介入才能根治</p>
+
+  <div class="page-break"></div>
+
+  <!-- §3 改善總覽 -->
+  <div class="section-divider">
+    <span class="section-num">§ 03</span>
+    <div class="section-rule"></div>
+  </div>
+  <h2 class="section-title">改善策略總覽</h2>
+  <p class="section-desc">四週分階段介入，建立自我平衡的健康生態系統</p>
+
+  <div class="alert alert-tip">
+    <strong>設計師核心建議</strong>
+    在右側或右下角增設微型曝氣幫浦或噴泉出水點，形成對角水流，消除死水區。此為最低成本、最快見效的物理改善措施，建議第一週即執行。
+  </div>
+
+  <table class="task-table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>階段</th>
+        <th>主要工作</th>
+        <th>介入類型</th>
+        <th>預期效果</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div class="priority-dot dot-red"></div></td>
+        <td><strong>第 1 週</strong><br><span style="font-size:11px;color:var(--ink-muted)">緊急處理</span></td>
+        <td>
+          <div class="task-name">人工撈藻 + 大麥稈 + 阻斷落花</div>
+          <div class="task-detail">撈除 70% 以上水面存量藻斑；投放大麥稈抑藻；架設攔截網或每日清撈落花落葉</div>
+        </td>
+        <td>
+          <span class="tag tag-filter">物理</span>
+          <span class="tag tag-plant">天然</span>
+        </td>
+        <td style="font-size:13px;color:var(--ink-muted)">阻斷爆藻勢頭</td>
+      </tr>
+      <tr>
+        <td><div class="priority-dot dot-amber"></div></td>
+        <td><strong>第 2 週</strong><br><span style="font-size:11px;color:var(--ink-muted)">菌相建立</span></td>
+        <td>
+          <div class="task-name">硝化細菌 + EM 菌 + 菌附著基質</div>
+          <div class="task-detail">傍晚投放硝化菌劑（避免紫外線殺菌）；設置陶瓷環、礫石網袋；每週補充連續 3 週</div>
+        </td>
+        <td>
+          <span class="tag tag-micro">菌像</span>
+        </td>
+        <td style="font-size:13px;color:var(--ink-muted)">啟動氮循環分解有機物</td>
+      </tr>
+      <tr>
+        <td><div class="priority-dot dot-amber"></div></td>
+        <td><strong>第 3 週</strong><br><span style="font-size:11px;color:var(--ink-muted)">植物種植</span></td>
+        <td>
+          <div class="task-name">挺水植物 + 沉水植物 + 浮葉植物</div>
+          <div class="task-detail">石縫種香蒲、紙莎草、野薑花；池底種金魚藻；盆栽睡蓮覆蓋水面 20～30%</div>
+        </td>
+        <td>
+          <span class="tag tag-plant">植物</span>
+        </td>
+        <td style="font-size:13px;color:var(--ink-muted)">搶佔藻類養分與光源</td>
+      </tr>
+      <tr>
+        <td><div class="priority-dot dot-green"></div></td>
+        <td><strong>第 4 週</strong><br><span style="font-size:11px;color:var(--ink-muted)">動物投放</span></td>
+        <td>
+          <div class="task-name">河蚌 + 米蝦 + 大肚魚</div>
+          <div class="task-detail">每 5m² 放 2～3 顆河蚌；每 m² 放 10 隻米蝦；每 m² 放 3～5 隻大肚魚（防蚊）</div>
+        </td>
+        <td>
+          <span class="tag tag-bio">生物</span>
+        </td>
+        <td style="font-size:13px;color:var(--ink-muted)">建立完整食物鏈</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-break"></div>
+
+  <!-- §4 詳細作業程序 -->
+  <div class="section-divider">
+    <span class="section-num">§ 04</span>
+    <div class="section-rule"></div>
+  </div>
+  <h2 class="section-title">詳細作業程序</h2>
+
+  <!-- Phase 1 -->
+  <div class="phase-block">
+    <div class="phase-header">
+      <span class="phase-badge badge-red">PHASE 01</span>
+      <span class="phase-title">緊急處理階段 — 第 1 週</span>
+      <span class="phase-goal">目標：阻斷藻類持續增殖</span>
+    </div>
+
+    <table class="task-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>作業項目</th>
+          <th>執行方法</th>
+          <th>頻率</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="priority-dot dot-red"></div></td>
+          <td><strong>人工撈除浮藻</strong></td>
+          <td>使用細網目撈網（≤1mm 網目），每天早晨 07:00 前完成，撈出藻量達水面覆蓋率 70% 以上。撈出藻體可直接堆肥，勿倒回池中。</td>
+          <td>每日</td>
+        </tr>
+        <tr>
+          <td><div class="priority-dot dot-red"></div></td>
+          <td><strong>投放大麥稈</strong></td>
+          <td>每 1m³ 水體使用 50g 乾大麥稈，以網袋盛裝後分散放置石塊旁（不可堆積於一處）。分解時釋放過氧化氫，天然抑制藻類。效果持續 4～6 週，需在 6 週後更換。</td>
+          <td>一次性，6 週後換新</td>
+        </tr>
+        <tr>
+          <td><div class="priority-dot dot-amber"></div></td>
+          <td><strong>阻斷落花輸入</strong></td>
+          <td>樟樹花期間於池面架設細目攔截網，或每日 08:00、16:00 各撈除一次落花落葉。落花落葉勿讓其沉積池底超過 24 小時。</td>
+          <td>每日（花期間）</td>
+        </tr>
+        <tr>
+          <td><div class="priority-dot dot-amber"></div></td>
+          <td><strong>增設曝氣點</strong></td>
+          <td>在右側（或右下角死水區）增設微型曝氣幫浦或噴泉出水點，功率 ≥15W，使全池形成對角流動。此為最快見效的物理改善措施。</td>
+          <td>持續運行</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="filter-sop">
+      <div class="filter-sop-header">過濾系統操作 — 第 1 週（爆藻緊急期，加密反洗）</div>
+      <table>
+        <thead>
+          <tr>
+            <th>執行日</th>
+            <th>模式</th>
+            <th>時間</th>
+            <th>說明</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>週一 08:00</strong></td>
+            <td><span class="mode-pill mode-backwash">反洗</span></td>
+            <td>15 分鐘</td>
+            <td>關幫浦 → 切反洗 → 開幫浦，排水至廢水管</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td><span class="mode-pill mode-rinse">正洗</span></td>
+            <td>1 分鐘</td>
+            <td>反洗後接正洗，沖走砂層殘留汙水至廢水管</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td><span class="mode-pill mode-filter">過濾</span></td>
+            <td>全天持續</td>
+            <td>正洗完畢後切回過濾模式，建議每日運行 ≥8 小時</td>
+          </tr>
+          <tr>
+            <td><strong>週四 08:00</strong></td>
+            <td><span class="mode-pill mode-backwash">反洗</span></td>
+            <td>10 分鐘</td>
+            <td>爆藻期加密反洗，防止砂層過快阻塞</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td><span class="mode-pill mode-rinse">正洗</span></td>
+            <td>1 分鐘</td>
+            <td>同上</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td><span class="mode-pill mode-filter">過濾</span></td>
+            <td>全天持續</td>
+            <td>恢復過濾模式</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="footnote">⚠ 切換閥位前務必先關閉幫浦，否則將損壞多功能閥。最大工作壓力 36PSI，超過須立即檢查。</p>
+  </div>
+
+  <!-- Phase 2 -->
+  <div class="phase-block">
+    <div class="phase-header">
+      <span class="phase-badge badge-amber">PHASE 02</span>
+      <span class="phase-title">菌相建立階段 — 第 2 週</span>
+      <span class="phase-goal">目標：啟動氮循環，加速分解有機物</span>
+    </div>
+
+    <table class="task-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>作業項目</th>
+          <th>執行方法</th>
+          <th>頻率</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="priority-dot dot-amber"></div></td>
+          <td><strong>投放硝化細菌</strong></td>
+          <td>依市售產品建議量 × 1.5 倍投放。傍晚 17:00 後入水（避免日間紫外線殺菌）。入水前先以少量池水稀釋。投放後切換循環模式（Recirculate）運行 2 小時，使菌劑均勻擴散全池。</td>
+          <td>每週一次，連續 3 週</td>
+        </tr>
+        <tr>
+          <td><div class="priority-dot dot-amber"></div></td>
+          <td><strong>補充 EM 菌</strong></td>
+          <td>有效微生物群（EM 菌），每 2 週施用一次，與硝化細菌錯開日期。可加速池底有機物分解，減少底泥氮磷釋放。</td>
+          <td>每 2 週一次</td>
+        </tr>
+        <tr>
+          <td><div class="priority-dot dot-green"></div></td>
+          <td><strong>設置菌附著基質</strong></td>
+          <td>陶瓷環或碎礫石裝入細網袋，放置池底各角落，每 m² 約 1 袋。也可放置人工水草束。增加硝化菌附著面積，配合砂濾桶砂層共同形成高效菌床。</td>
+          <td>一次性設置，永久保留</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="filter-sop">
+      <div class="filter-sop-header">過濾系統操作 — 第 2 週（加菌期）</div>
+      <table>
+        <thead>
+          <tr><th>執行日</th><th>模式</th><th>時間</th><th>說明</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>週一 08:00</strong></td>
+            <td><span class="mode-pill mode-backwash">反洗</span></td>
+            <td>10 分鐘</td>
+            <td>例行維護，保持砂層通暢</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td><span class="mode-pill mode-rinse">正洗</span></td>
+            <td>1 分鐘</td>
+            <td>反洗後接正洗</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td><span class="mode-pill mode-filter">過濾</span></td>
+            <td>全天</td>
+            <td>恢復過濾模式</td>
+          </tr>
+          <tr>
+            <td><strong>週三 17:00</strong></td>
+            <td>— 投菌 —</td>
+            <td>—</td>
+            <td>傍晚投放硝化細菌</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td><span class="mode-pill mode-recirculate">循環</span></td>
+            <td>2 小時</td>
+            <td>投菌後切循環模式讓菌劑擴散全池（不過砂層，保護新菌）</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td><span class="mode-pill mode-filter">過濾</span></td>
+            <td>之後全天</td>
+            <td>2 小時後恢復過濾模式</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Phase 3 -->
+  <div class="phase-block">
+    <div class="phase-header">
+      <span class="phase-badge badge-amber">PHASE 03</span>
+      <span class="phase-title">植物種植階段 — 第 3 週</span>
+      <span class="phase-goal">目標：用植物競爭藻類養分與光源</span>
+    </div>
+
+    <table class="task-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>植物類型</th>
+          <th>建議品種</th>
+          <th>種植位置 / 密度</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="priority-dot dot-green"></div></td>
+          <td><strong>挺水植物</strong></td>
+          <td>香蒲、紙莎草、野薑花</td>
+          <td>利用照片中石塊縫隙種植，每 2m 岸邊種 1 叢。根系直接吸收水中氮磷，兼提供菌附著面積。</td>
+        </tr>
+        <tr>
+          <td><div class="priority-dot dot-green"></div></td>
+          <td><strong>沉水植物</strong></td>
+          <td>金魚藻、台灣水草</td>
+          <td>種植於池底，覆蓋底部 30% 面積。與藻類直接競爭陽光和養分，是最有效的生物抑藻法。</td>
+        </tr>
+        <tr>
+          <td><div class="priority-dot dot-green"></div></td>
+          <td><strong>浮葉植物</strong></td>
+          <td>睡蓮、荷花</td>
+          <td>以盆栽方式沉入池中，覆蓋水面積 20～30%。遮光直接抑制藻類光合作用，同時提升景觀價值。</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="alert alert-info">
+      <strong>植物覆蓋比例控制</strong>
+      總植物覆蓋水面不超過 50%，避免夜間耗氧過多導致魚類缺氧。挺水植物需定期修剪，防止過度蔓延。
+    </div>
+  </div>
+
+  <!-- Phase 4 -->
+  <div class="phase-block">
+    <div class="phase-header">
+      <span class="phase-badge badge-teal">PHASE 04</span>
+      <span class="phase-title">動物投放階段 — 第 4 週</span>
+      <span class="phase-goal">目標：建立完整食物鏈，形成自我調節</span>
+    </div>
+
+    <table class="task-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>動物</th>
+          <th>功能</th>
+          <th>建議密度</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="priority-dot dot-green"></div></td>
+          <td><strong>河蚌</strong></td>
+          <td>濾食懸浮藻類，每隻每日可過濾約 50 公升水體</td>
+          <td>每 5m² 放 2～3 顆，分散置於池底各處</td>
+        </tr>
+        <tr>
+          <td><div class="priority-dot dot-green"></div></td>
+          <td><strong>田螺</strong></td>
+          <td>清除底部及石面附著藻，分解有機碎屑</td>
+          <td>每 m² 放 3～5 隻</td>
+        </tr>
+        <tr>
+          <td><div class="priority-dot dot-green"></div></td>
+          <td><strong>米蝦</strong></td>
+          <td>清除底部有機碎屑與附著藻，效率最高的清道夫</td>
+          <td>每 m² 放 10 隻，越多越好</td>
+        </tr>
+        <tr>
+          <td><div class="priority-dot dot-green"></div></td>
+          <td><strong>大肚魚</strong></td>
+          <td>吃孑孓防止蚊子孳生，增加水體活躍度（戶外池必放）</td>
+          <td>每 m² 放 3～5 隻</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="alert alert-warn">
+      <strong>動物投放注意事項</strong>
+      動物投放需確認水質穩定後（藻量明顯減少、水色轉清）才進行。投放前先做溫度馴化（將裝魚袋浮放水面 15 分鐘）。夏季水溫超過 35°C 時魚類壓力大，需在遮陰區域保留退避空間。
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- §5 每週維護日曆 -->
+  <div class="section-divider">
+    <span class="section-num">§ 05</span>
+    <div class="section-rule"></div>
+  </div>
+  <h2 class="section-title">每週維護時程表</h2>
+  <p class="section-desc">穩定後（第 5 週起）常態化執行</p>
+
+  <div class="week-grid" style="margin-bottom:20px">
+    <div class="day-block">
+      <div class="day-label">MON 週一</div>
+      <div class="day-task dt-filter">反洗 8 分鐘</div>
+      <div class="day-task dt-filter">正洗 1 分鐘</div>
+      <div class="day-task dt-filter">壓力錶檢視</div>
+    </div>
+    <div class="day-block">
+      <div class="day-label">TUE 週二</div>
+      <div class="day-task dt-clean">落花撈除</div>
+      <div class="day-task dt-check">水色目視</div>
+    </div>
+    <div class="day-block">
+      <div class="day-label">WED 週三</div>
+      <div class="day-task dt-bio">補充益菌</div>
+      <div class="day-task dt-bio">（每 2 週）</div>
+      <div class="day-task dt-filter">切循環 1hr</div>
+    </div>
+    <div class="day-block">
+      <div class="day-label">THU 週四</div>
+      <div class="day-task dt-clean">落葉清撈</div>
+      <div class="day-task dt-check">動物觀察</div>
+    </div>
+    <div class="day-block">
+      <div class="day-label">FRI 週五</div>
+      <div class="day-task dt-clean">全面清撈</div>
+      <div class="day-task dt-check">植物修剪</div>
+    </div>
+    <div class="day-block">
+      <div class="day-label">SAT 週六</div>
+      <div class="day-task dt-rest">例行過濾</div>
+    </div>
+    <div class="day-block">
+      <div class="day-label">SUN 週日</div>
+      <div class="day-task dt-rest">例行過濾</div>
+    </div>
+  </div>
+
+  <div class="filter-sop">
+    <div class="filter-sop-header">常態化過濾系統操作（第 5 週起）</div>
+    <table>
+      <thead>
+        <tr><th>時機</th><th>模式</th><th>時間</th><th>觸發條件</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>每週一 08:00</strong></td>
+          <td><span class="mode-pill mode-backwash">反洗</span> + <span class="mode-pill mode-rinse">正洗</span></td>
+          <td>8 分 + 1 分</td>
+          <td>例行維護，壓力偏高時加做一次</td>
+        </tr>
+        <tr>
+          <td><strong>補菌當日 17:00</strong></td>
+          <td><span class="mode-pill mode-recirculate">循環</span></td>
+          <td>1 小時</td>
+          <td>投菌後均勻擴散，之後恢復過濾</td>
+        </tr>
+        <tr>
+          <td><strong>每日</strong></td>
+          <td><span class="mode-pill mode-filter">過濾</span></td>
+          <td>≥ 8 小時</td>
+          <td>建議日出至日落持續運行</td>
+        </tr>
+        <tr>
+          <td><strong>壓力錶 &gt; 正常值 + 7PSI</strong></td>
+          <td><span class="mode-pill mode-backwash">反洗</span></td>
+          <td>立即執行</td>
+          <td>勿等到週一，立即反洗</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- §6 異常處理 -->
+  <div class="section-divider">
+    <span class="section-num">§ 06</span>
+    <div class="section-rule"></div>
+  </div>
+  <h2 class="section-title">異常狀況處理</h2>
+
+  <table class="task-table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>異常現象</th>
+        <th>可能原因</th>
+        <th>處理方式</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div class="priority-dot dot-red"></div></td>
+        <td>水面再度大量爆藻</td>
+        <td>有機物輸入未斷、益菌量不足</td>
+        <td>重啟第 1 週緊急流程 + 加量補充硝化菌</td>
+      </tr>
+      <tr>
+        <td><div class="priority-dot dot-red"></div></td>
+        <td>水色變墨綠或藍綠色</td>
+        <td>藍綠藻（藍藻）爆發，毒性較強</td>
+        <td>立即聯絡景觀師評估；暫停補魚蝦；加強曝氣</td>
+      </tr>
+      <tr>
+        <td><div class="priority-dot dot-amber"></div></td>
+        <td>魚類浮頭（在水面喘氣）</td>
+        <td>溶氧不足，通常發生在夜間或悶熱天</td>
+        <td>立即開啟曝氣機；清除過多浮葉植物</td>
+      </tr>
+      <tr>
+        <td><div class="priority-dot dot-amber"></div></td>
+        <td>水體發臭</td>
+        <td>底泥有機物厭氧分解</td>
+        <td>加量補充 EM 菌；考慮底泥清淤（每年一次）</td>
+      </tr>
+      <tr>
+        <td><div class="priority-dot dot-green"></div></td>
+        <td>壓力錶異常升高</td>
+        <td>砂層阻塞</td>
+        <td>立即執行反洗 + 正洗；若仍異常聯絡廠商</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- §7 檢核清單 -->
+  <div class="section-divider">
+    <span class="section-num">§ 07</span>
+    <div class="section-rule"></div>
+  </div>
+  <h2 class="section-title">每月自主檢核清單</h2>
+
+  <ul class="checklist">
+    <li><div class="check-box"></div><div><div class="check-text">水色透明度正常（可見池底）</div><div class="check-note">若水色渾濁或呈茶褐色，加強過濾並補充益菌</div></div></li>
+    <li><div class="check-box"></div><div><div class="check-text">水面無大面積藻斑覆蓋</div><div class="check-note">零星藻斑屬正常，覆蓋超過 10% 需啟動緊急流程</div></div></li>
+    <li><div class="check-box"></div><div><div class="check-text">沙濾桶壓力錶數值正常</div><div class="check-note">記錄正常值基準，偏高 7PSI 以上立即反洗</div></div></li>
+    <li><div class="check-box"></div><div><div class="check-text">魚類、蝦類活動正常</div><div class="check-note">魚蝦活躍是水質良好的最佳指標</div></div></li>
+    <li><div class="check-box"></div><div><div class="check-text">挺水植物生長正常，無過度蔓延</div><div class="check-note">若有蔓延超出石岸範圍，進行修剪</div></div></li>
+    <li><div class="check-box"></div><div><div class="check-text">大麥稈仍有效（6 週更換一次）</div><div class="check-note">更換日期：_____________</div></div></li>
+    <li><div class="check-box"></div><div><div class="check-text">過濾系統每週反洗紀錄完整</div><div class="check-note">建議建立紙本反洗日誌張貼於機房</div></div></li>
+    <li><div class="check-box"></div><div><div class="check-text">無蚊子孳生（大肚魚數量足夠）</div><div class="check-note">戶外池夏季需特別注意蚊子孳生</div></div></li>
+  </ul>
+
+  <hr class="thin" style="margin-top:40px">
+
+  <div style="display:flex; justify-content:space-between; align-items:flex-end; padding-top:16px">
+    <div>
+      <p style="font-family:var(--mono);font-size:11px;color:var(--ink-muted)">ECO-POND-SOP-001 v1.0</p>
+      <p style="font-family:var(--mono);font-size:11px;color:var(--ink-muted)">校園總務處 生態水池管理文件</p>
+    </div>
+    <div style="text-align:right">
+      <p style="font-family:var(--serif);font-size:13px;color:var(--ink-muted)">核准：＿＿＿＿＿＿＿＿</p>
+      <p style="font-family:var(--serif);font-size:13px;color:var(--ink-muted);margin-top:6px">日期：＿＿＿＿＿＿＿＿</p>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
